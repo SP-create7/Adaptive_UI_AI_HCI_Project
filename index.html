@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adaptive AI User Interface</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+            transition: all 0.4s ease;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 1.05rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .card h2 {
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            background: #e2e8f0;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .status {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: #eef2ff;
+            margin-top: 20px;
+        }
+
+        .status strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .recommendation {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #ecfdf5;
+        }
+
+        .recommendation p {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .stats {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        .stats h3 {
+            margin-bottom: 12px;
+        }
+
+        .stats p {
+            margin-bottom: 6px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        body.adapted {
+            background: #111827;
+            color: #f9fafb;
+        }
+
+        body.adapted .card {
+            background: #1f2937;
+            color: #f9fafb;
+        }
+
+        body.adapted header p,
+        body.adapted footer {
+            color: #cbd5e1;
+        }
+
+        body.adapted .status {
+            background: #374151;
+        }
+
+        body.adapted .recommendation {
+            background: #064e3b;
+        }
+
+        body.adapted .stats {
+            background: #374151;
+        }
+
+        body.adapted button {
+            background: #4b5563;
+            color: #f9fafb;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Adaptive AI User Interface</h1>
+
+        <p>
+            A demonstration of AI-based adaptive human-computer interaction
+        </p>
+    </header>
+
+
+    <div class="card">
+
+        <h2>Welcome</h2>
+
+        <p>
+            This interface learns from your interaction preferences
+            and adapts the user experience accordingly.
+        </p>
+
+        <p>
+            Select the interface style you prefer. The system will
+            record your interaction and use a machine-learning model
+            to predict your preferred interface.
+        </p>
+
+        <div class="options">
+
+            <button onclick="recordPreference('simple')">
+                Simple Interface
+            </button>
+
+            <button onclick="recordPreference('detailed')">
+                Detailed Interface
+            </button>
+
+            <button onclick="recordPreference('dark')">
+                Dark Interface
+            </button>
+            <button onclick="resetSession()">
+                Start New Session
+            </button>
+        </div>
+
+
+        <div class="status">
+
+            <strong id="statusTitle">
+                Adaptive System Status
+            </strong>
+
+            <span id="statusMessage">
+                Waiting for your interaction...
+            </span>
+
+        </div>
+
+
+        <div class="recommendation" id="recommendation">
+
+            <strong>
+                Machine-Learning Prediction
+            </strong>
+
+            <p id="recommendationText"></p>
+
+        </div>
+
+
+        <div class="stats" id="stats">
+
+            <h3>
+                Interaction History
+            </h3>
+
+            <p>
+                Simple selections:
+                <span id="simpleCount">0</span>
+            </p>
+
+            <p>
+                Detailed selections:
+                <span id="detailedCount">0</span>
+            </p>
+
+            <p>
+                Dark selections:
+                <span id="darkCount">0</span>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>How the Adaptive System Works</h2>
+
+        <p>
+            The system observes the user's interaction with the
+            interface and records the selected preferences.
+        </p>
+
+        <p>
+            The interaction history is sent to a machine-learning
+            component. A Decision Tree classifier analyzes the
+            interaction pattern and predicts the user's preferred
+            interface style.
+        </p>
+
+        <p>
+            The predicted preference is then used to adapt the
+            interface, demonstrating adaptive human-computer
+            interaction.
+        </p>
+
+    </div>
+
+
+    <footer>
+        Adaptive UI using AI/HCI Project
+    </footer>
+
+</div>
+
+
+<script>
+
+    async function recordPreference(preference) {
+
+        const statusMessage =
+            document.getElementById("statusMessage");
+
+        const statusTitle =
+            document.getElementById("statusTitle");
+
+        const recommendation =
+            document.getElementById("recommendation");
+
+        const recommendationText =
+            document.getElementById("recommendationText");
+
+
+        statusTitle.textContent =
+            "Processing Interaction...";
+
+        statusMessage.textContent =
+            "Sending your interaction to the adaptive system...";
+
+
+        try {
+
+            const response = await fetch(
+                "/record/" + preference,
+                {
+                    method: "POST"
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            if (!data.success) {
+
+                statusTitle.textContent =
+                    "Adaptive System Error";
+
+                statusMessage.textContent =
+                    data.message;
+
+                return;
+            }
+
+
+            statusTitle.textContent =
+                "Adaptive System Active";
+
+
+            statusMessage.textContent =
+                "Your interaction was recorded successfully.";
+
+
+            recommendation.style.display =
+                "block";
+
+
+            const prediction =
+                data.prediction;
+
+
+            recommendationText.textContent =
+                "The machine-learning model predicts that your " +
+                "preferred interface style is: " +
+                prediction.toUpperCase() + ".";
+
+
+            document.getElementById("simpleCount").textContent =
+                data.counts.simple;
+
+
+            document.getElementById("detailedCount").textContent =
+                data.counts.detailed;
+
+
+            document.getElementById("darkCount").textContent =
+                data.counts.dark;
+
+
+            /*
+             * Adapt the interface based on the
+             * machine-learning prediction.
+             */
+
+            if (prediction === "dark") {
+
+                document.body.classList.add("adapted");
+
+            } else {
+
+                document.body.classList.remove("adapted");
+
+            }
+
+        }
+
+        catch (error) {
+
+            statusTitle.textContent =
+                "Connection Error";
+
+            statusMessage.textContent =
+                "The application could not connect to the adaptive system.";
+
+            console.error(error);
+
+        }
+
+    }
+
+</script>
+async function resetSession() {
+
+    try {
+
+        const response = await fetch(
+            "/reset",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            document.getElementById("statusTitle").textContent =
+                "New Session Started";
+
+            document.getElementById("statusMessage").textContent =
+                "Interaction history has been reset.";
+
+            document.getElementById("recommendation").style.display =
+                "none";
+
+            document.getElementById("simpleCount").textContent =
+                "0";
+
+            document.getElementById("detailedCount").textContent =
+                "0";
+
+            document.getElementById("darkCount").textContent =
+                "0";
+
+            document.body.classList.remove("adapted");
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+</body>
+</html>
